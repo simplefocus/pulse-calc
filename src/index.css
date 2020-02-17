@@ -3,12 +3,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-svg {
-  border: 1px solid #ccc;
-}
-
 text {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Work Sans', sans-serif;
 }
 
 .axis .domain {

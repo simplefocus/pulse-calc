@@ -1,10 +1,15 @@
-import React from 'react';
-import BarChartData from './components/BarChartData'
+import React from "react"
+import customTheme from "./theme"
+import Stepper from "./Stepper"
+import { ThemeProvider, CSSReset } from "@chakra-ui/core"
 
 function App() {
-  return (
-    <BarChartData />
-  )
+    return (
+        <ThemeProvider theme={customTheme}>
+            <CSSReset />
+            <Stepper />
+        </ThemeProvider>
+    )
 }
 
-export default App;
+export default App
