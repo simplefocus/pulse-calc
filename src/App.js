@@ -1,14 +1,12 @@
 import React from "react"
-import customTheme from "./theme"
-import Stepper from "./Stepper"
-import { ThemeProvider, CSSReset } from "@chakra-ui/core"
+import Stepper from "./components/Stepper"
+import AppStyles from "./AppStyles.styles.tw"
 
 function App() {
     return (
-        <ThemeProvider theme={customTheme}>
-            <CSSReset />
+        <AppStyles>
             <Stepper />
-        </ThemeProvider>
+        </AppStyles>
     )
 }
 

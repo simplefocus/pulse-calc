@@ -3,7 +3,6 @@ import { csv } from "d3-fetch"
 import { ascending } from "d3-array"
 import BarChart from "./BarChart"
 import ChartForm from "./ChartForm"
-import { Flex } from "@chakra-ui/core"
 import { useGlobalState } from "../GlobalState"
 
 const parseNA = string => (string === "NA" ? undefined : string)
@@ -58,9 +57,9 @@ const BarChartData = () => {
     }
 
     return (
-        <Flex>
+        <div>
             <BarChart data={barChartData} />
-        </Flex>
+        </div>
     )
 }
 
