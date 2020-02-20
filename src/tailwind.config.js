@@ -13,6 +13,11 @@ module.exports = {
                 "input-green": "#19AC6C",
                 "dark": "#062C27",
                 "disabled-gray": "#3C3C3C40"
+            },
+            maxWidth: {
+                "1/4": "25%",
+                "1/2": "50%",
+                "3/4": "75%"
             }
         }
     },

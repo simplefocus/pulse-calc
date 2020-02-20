@@ -27,6 +27,7 @@ const Radio = props => {
                     background-size: 100% 100%;
                 }
             `}
+                id={inputName}
                 type="radio"
                 name={inputName}
                 value={value}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { csv } from "d3-fetch"
 import { ascending } from "d3-array"
 import BarChart from "./BarChart"
-import ChartForm from "./ChartForm"
+import IncomeForm from "./forms/IncomeForm"
 import { useGlobalState } from "../GlobalState"
 
 const parseNA = string => (string === "NA" ? undefined : string)
@@ -33,7 +33,6 @@ function prepareBarChartData(data) {
 const BarChartData = () => {
     const [barChartData, setBarChartData] = useState(null)
     const [initialCash] = useGlobalState("initialCash")
-    const [cashFromCustomers] = useGlobalState("cashFromCustomers")
 
     useEffect(() => {
         // csv("/static/data/barchart.csv", type).then(data => {
@@ -48,9 +47,9 @@ const BarChartData = () => {
     }, [])
 
     useEffect(() => {
-        let data = [initialCash, cashFromCustomers]
+        let data = [initialCash]
         setBarChartData(prepareBarChartData(data))
-    }, [initialCash, cashFromCustomers])
+    }, [initialCash])
 
     if (barChartData === null) {
         return <p>Loading...</p>
