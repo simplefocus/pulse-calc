@@ -1,13 +1,5 @@
 import React from "react"
 
-import {
-    setInitialCash,
-    setProfitModel,
-    setSeasonal,
-    setRecurringRevenue,
-    setProjectRevenue,
-    useGlobalState
-} from "../../GlobalState"
 import styled from "styled-components/macro"
 import tw from "twin.macro"
 import Radio from "../Radio"
@@ -15,7 +7,7 @@ import TextInput from "../TextInput"
 import InputRightAddon from "../InputRightAddon"
 import InputLeftAddon from "../InputLeftAddon"
 import {Label, FormControl, RadioGroup} from "../forms/"
-
+import { dispatch, useGlobalState } from '../../state';
 
 const IncomeForm = () => {
     const [initialCash] = useGlobalState("initialCash")
@@ -23,30 +15,45 @@ const IncomeForm = () => {
     const [seasonal] = useGlobalState("seasonal")
     const [recurringRevenue] = useGlobalState("recurringRevenue")
     const [projectRevenue] = useGlobalState("projectRevenue")
+    const [profitMarginValue] = useGlobalState("profitMarginValue")
+    const setProfitModel = event => dispatch({
+        profitModel: event,
+        type: 'setProfitModel'
+    })
 
-    const radioSelect = event => {
-        setProfitModel(event)
-    }
-
-    const seasonalSet = value => {
-        setSeasonal(value)
-    }
+    const setSeasonal = value => dispatch({
+        seasonal: value,
+        type: 'setSeasonal'
+    })
 
     const setText = (type, event) => {
-        console.log(type)
         if (type === "cash-on-hand") {
-            setInitialCash(event.target.value)
+            dispatch({
+                initialCash: event.target.value,
+                type: 'setInitialCash'
+            })
         } else if (type === "revenue-recurring") {
-            setRecurringRevenue(event.target.value)
+            dispatch({
+                recurringRevenue: event.target.value,
+                type: 'setRecurringRevenue'
+            })
         } else if (type === "revenue-project") {
-            setProjectRevenue(event.target.value)
+            dispatch({
+                projectRevenue: event.target.value,
+                type: 'setProjectRevenue'
+            })
+        } else if (type === "profit-margin") {
+            dispatch({
+                profitMarginValue: event.target.value,
+                type: 'setProfitMarginValue'
+            })
         }
     }
 
     return (
         <form
             css={`
-                ${tw`flex max-w-1/2 pt-6`}
+                ${tw`flex pt-6 max-w-1/2`}
             `}
         >
             <div
@@ -63,7 +70,7 @@ const IncomeForm = () => {
                         label="Percentage"
                         checked={profitModel === "percentage"}
                         onClick={() => setProfitModel("percentage")}
-                        onChange={radioSelect}
+                        onChange={setProfitModel}
                     />
                     <Radio
                         color="input-green"
@@ -72,12 +79,12 @@ const IncomeForm = () => {
                         label="Fixed"
                         checked={profitModel === "fixed"}
                         onClick={() => setProfitModel("fixed")}
-                        onChange={radioSelect}
+                        onChange={setProfitModel}
                     />
                 </RadioGroup>
                 <FormControl>
                     {profitModel === "fixed" && <InputLeftAddon label="$" />}
-                    <TextInput inputName="profit-margin" onChange={setText} />
+                    <TextInput inputName="profit-margin" onChange={setText} value={profitMarginValue}/>
                     {profitModel === "percentage" && (
                         <InputRightAddon label="%" />
                     )}
@@ -127,7 +134,7 @@ const IncomeForm = () => {
                         label="Yes"
                         checked={seasonal === "yes"}
                         onClick={() => setSeasonal("yes")}
-                        onChange={seasonalSet}
+                        onChange={setSeasonal}
                     />
                     <Radio
                         color="input-green"
@@ -136,7 +143,7 @@ const IncomeForm = () => {
                         label="No"
                         checked={seasonal === "no"}
                         onClick={() => setSeasonal("no")}
-                        onChange={seasonalSet}
+                        onChange={setSeasonal}
                     />
                 </RadioGroup>
             </div>

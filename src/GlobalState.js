@@ -1,6 +1,6 @@
 import { createGlobalState } from "react-hooks-global-state"
 
-const { setGlobalState, useGlobalState } = createGlobalState({
+const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState({
     initialCash: "",
     profitModel: "percentage",
     recurringRevenue: "",
@@ -15,11 +15,6 @@ const { setGlobalState, useGlobalState } = createGlobalState({
         "Rent & Facility" : "",
         "Software" : ""
     }
-    // person: {
-    //     age: 20,
-    //     firstName: "",
-    //     lastName: ""
-    // }
 })
 
 // export const setPersonFirstName = firstName => {
@@ -53,8 +48,13 @@ export const setProjectRevenue = amount => {
 export const setSeasonal = bool => {
     setGlobalState("seasonal", v => bool)
 }
-export const setExpenses = object => {
-    setGlobalState("expenses", v => object)
+export const setExpenses = (type, value) => {
+    let prev = getGlobalState("expenses")
+    if (type in prev) {
+        // prev[type] = value
+        setGlobalState("expenses", v => ({ ...v.type, value }))
+    }
+    // setGlobalState("expenses", v => object)
 }
 
 export { useGlobalState }

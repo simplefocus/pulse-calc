@@ -7,11 +7,13 @@ import config from "../tailwind.config.js"
 const theme = tailwind.theme(config)
 
 const TextInput = props => {
-    const { inputName, value, color, placeholder, onChange } = props
+    const { inputName, value, color, placeholder, onChange, onBlur, autoFocus } = props
+    const blurIsFunction = (onBlur instanceof Function)
+    const changeIsFunction = (onChange instanceof Function)
     return (
         <input
             css={`
-                ${tw`block items-center bg-white border-input-border border border border-solid px-4 my-2 outline-none self-start`};
+                ${tw`items-center self-start block px-4 my-2 bg-white border border-solid outline-none border-input-border`};
                 height: 40px;
                 transition: all 0.2s;
                 &:focus,
@@ -23,7 +25,9 @@ const TextInput = props => {
             name={inputName}
             value={value}
             placeholder={placeholder}
-            onChange={value => onChange(inputName, value)}
+            onBlur={blurIsFunction ? value => onBlur(inputName, value) : null}
+            onChange={changeIsFunction ? value => onChange(inputName, value) : () => (console.log('foo'))}
+            autoFocus={autoFocus}
         />
     )
 }

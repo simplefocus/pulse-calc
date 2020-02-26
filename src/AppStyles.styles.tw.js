@@ -22,7 +22,7 @@ const AppStyles = styled.div.attrs()`
             ${tw`mr-5 text-dark`}
         }
         a {
-            ${tw`text-blue-500 hover:text-gray-500 hover:underline`}
+            ${tw`text-input-green cursor-pointer underline hover:text-gray-500 hover:underline`}
         }
     }
 `

@@ -6,9 +6,7 @@ import { ReactComponent as Logo } from "../logo.svg"
 
 const Heading = tw.h1`mt-8 mb-2 text-4xl font-sans font-bold`
 const HeaderContainer = styled.div`
-    ${tw`
-        bg-pale-green p-4 md:p-8 lg:p-12
-    `}
+    ${tw`p-4 bg-pale-green md:p-8 lg:p-12`}
     min-height: 35vh;
     width: 100%;
 `
