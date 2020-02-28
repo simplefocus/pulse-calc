@@ -3,11 +3,13 @@ import tw from "twin.macro"
 
 const AppStyles = styled.div.attrs()`
     & {
+        ${tw`bg-pale-green`}
+        min-height: 100vh;
         h1 {
-            ${tw`font-sans text-6xl text-dark`}
+            ${tw`font-sans text-5xl text-dark`}
         }
         p {
-            ${tw`text-gray-700 text-lg text-dark`}
+            ${tw`text-lg text-gray-700 text-dark`}
         }
         h2 {
             ${tw`text-2xl text-dark`}
@@ -22,7 +24,7 @@ const AppStyles = styled.div.attrs()`
             ${tw`mr-5 text-dark`}
         }
         a {
-            ${tw`text-input-green cursor-pointer underline hover:text-gray-500 hover:underline`}
+            ${tw`underline cursor-pointer text-input-green hover:text-gray-500 hover:underline`}
         }
     }
 `

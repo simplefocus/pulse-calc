@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components/macro"
 import tw from "twin.macro"
 import tailwind from "tailwind-config"
-import config from "../tailwind.config.js"
+import config from "../../tailwind.config.js"
 import svgToDataUri from "mini-svg-data-uri"
 
 const theme = tailwind.theme(config)
@@ -15,7 +15,7 @@ const Radio = props => {
         <label htmlFor={inputName}>
             <input
                 css={`
-                ${tw`appearance-none inline-block align-middle text-white select-none border-gray-200 border border border-solid rounded-full flex-shrink-0 mr-2`};
+                ${tw`flex-shrink-0 inline-block mr-2 text-white align-middle border border-gray-200 border-solid rounded-full appearance-none select-none`};
                 height: 20px;
                 width: 20px;
                 color-adjust: exact;

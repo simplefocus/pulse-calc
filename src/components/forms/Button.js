@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components/macro"
 import tw from "twin.macro"
 import tailwind from "tailwind-config"
-import config from "../tailwind.config.js"
+import config from "../../tailwind.config.js"
 import svgToDataUri from "mini-svg-data-uri"
 
 const theme = tailwind.theme(config)
@@ -27,13 +27,13 @@ const Button = props => {
         <button
             name={inputName}
             css={`
-                ${tw`appearance-none outline-none inline-block bg-pulse-green py-4 px-6`}
+                ${tw`inline-block px-6 py-4 outline-none appearance-none bg-pulse-green`}
                 transition: .1s ease;
                 :hover:not(:disabled) {
                     transform: scale(1.05);
                 }
                 &:disabled {
-                    ${tw`bg-pale-green cursor-not-allowed`}
+                    ${tw`cursor-not-allowed bg-pale-green`}
                     color: #062C2730;
                     strong {
                         color: #062c2730;

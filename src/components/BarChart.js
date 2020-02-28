@@ -1,113 +1,60 @@
-import React, { useEffect, useRef } from "react"
-import { select } from "d3-selection"
-import { max } from "d3-array"
-import { scaleLinear, scaleBand } from "d3-scale"
-import { axisLeft, axisBottom } from "d3-axis"
-import { useGlobalState } from "../GlobalState"
-
-// margin convention often used with D3
-const margin = { top: 80, right: 60, bottom: 80, left: 100 }
-const width = 800 - margin.left - margin.right
-const height = 800 - margin.top - margin.bottom
-const color = ["#00AD6A", "#080c16", "#F68787", "#23ea76"]
-
-const BarChart = ({ data }) => {
-    const d3svg = useRef(null)
-    const [months] = useGlobalState("months")
-    const isIterable = object =>
-        object != null && typeof object[Symbol.iterator] === "function"
-
-    useEffect(() => {
-        if (data && d3svg.current) {
-            console.log(data)
-            let svg = select(d3svg.current)
-            if (isIterable(data)) {
-                // scales
-                // const xMax = data[11].end
-                const yMin = data[0].start
-                const yMax = data[11].start
-
-                const xScale = scaleBand()
-                    .domain(months.map(m => m))
-                    .rangeRound([0, width])
-                    .padding(0.1)
-
-                const yScale = scaleLinear()
-                    .domain([yMin, yMax])
-                    .range([height, 0])
-
-                // append group translated to chart area
-                svg.selectAll("g").remove()
-                svg = svg
-                    .append("g")
-                    .attr(
-                        "transform",
-                        `translate(${margin.left}, ${margin.top})`
-                    )
-                    
-
-                // draw header
-                // svg.append("g")
-                //     .attr("class", "bar-header")
-                //     .attr("transform", `translate(0, ${-margin.top / 2})`)
-                //     .append("text")
-                //     .append("tspan")
-                //     .text("Cash Flow Calculator")
-                // draw bars
-                svg.selectAll(".bar").remove()
-                svg.selectAll(".bar")
-                    .data(data)
-                    .enter()
-                    .append("rect")
-                    .attr("class", "bar")
-                    .attr("x", (d, i) => i * (width / 12))
-                    .attr("y", d => yScale(d.start))
-                    .attr("height", d => height - yScale(d.start))
-                    .attr("width", xScale.bandwidth() / 2)
-                    .style("fill", function(d, i) {
-                        return color[i % 4] // use colors in sequence
-                    })
-
-                // draw axes
-                const xAxis = axisBottom(xScale)
-                const yAxis = axisLeft(yScale)
-                let xAxisSVG = document.getElementById("xaxis")
-
-                if (xAxisSVG != null) {
-                    let svg = select(d3svg.current)
-                    svg.select(".x.axis").call(xAxis)
-                    svg.select(".y.axis").call(yAxis)
-                } else {
-                    svg.append("g")
-                        .attr("class", "x axis")
-                        .attr("id", "xaxis")
-                        .attr(
-                            "transform",
-                            `translate(0,${height + margin.bottom / 3})`
-                        )
-                        .call(xAxis)
-
-                    svg.append("g")
-                        .attr("class", "y axis")
-                        .attr("id", "yaxis")
-                        .call(yAxis)
-                }
-                svg.exit().remove()
-            }
-        }
-    }, [data])
-
+import React, { useEffect } from "react"
+import {
+    ComposedChart,
+    Line,
+    Area,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    ResponsiveContainer
+} from "recharts"
+import styled from "styled-components/macro"
+import tw from "twin.macro"
+const formatYAxis = tickItem => {
+    return Math.abs(tickItem) > 999
+        ? "$" + Math.sign(tickItem) * (Math.abs(tickItem) / 1000).toFixed(1) + "k"
+        : "$" + Math.sign(tickItem) * Math.abs(tickItem)
+}
+const ChartContainer = ({ income, expenses }) => {
+    const mergedData = income.map((item, i) =>
+        Object.assign({}, item, expenses[i])
+    )
+    console.log(mergedData)
+    useEffect(() => {}, [mergedData])
+    // http://recharts.org/en-US/examples/LineBarAreaComposedChart
     return (
-        <>
-            <svg
-                className="bar-chart-container"
-                width={width + margin.left + margin.right}
-                height={height + margin.top + margin.bottom}
-                role="img"
-                ref={d3svg}
-            ></svg>
-        </>
+        <ResponsiveContainer width="95%" height={450}>
+            <ComposedChart
+                data={mergedData}
+                margin={{
+                    top: 60,
+                    right: 20,
+                    bottom: 20,
+                    left: 20
+                }}
+                barCategoryGap="10px"
+                barGap="0"
+            >
+                <CartesianGrid stroke="#f5f5f5" />
+                <XAxis dataKey="name" padding={{ left: 50 }} />
+                <YAxis tickFormatter={formatYAxis} />
+                <Tooltip />
+                <Legend />
+                {/* <Area
+                        type="monotone"
+                        dataKey="in"
+                        fill="#8AC5F313"
+                        stroke="#8AC5F340"
+                    /> */}
+                <Bar dataKey="in" barSize={20} fill="#19AC6C" />
+                <Bar dataKey="out" barSize={20} fill="#F48889" />
+                {/* <Line type="monotone" dataKey="uv" stroke="#8AC5F3" /> */}
+            </ComposedChart>
+        </ResponsiveContainer>
     )
 }
 
-export default BarChart
+export default ChartContainer

@@ -1,63 +1,87 @@
 import React, { useState, useEffect } from "react"
 import { csv } from "d3-fetch"
 import { ascending } from "d3-array"
-import BarChart from "./BarChart"
-import IncomeForm from "./forms/IncomeForm"
-import { useGlobalState } from "../GlobalState"
+import ChartContainer from "./BarChart"
+import { dispatch, useGlobalState } from "../state"
 
-const parseNA = string => (string === "NA" ? undefined : string)
-
-function type(d) {
-    return {
-        genre: parseNA(d.genre),
-        revenue: +d.revenue
+function sum(obj) {
+    var sum = 0
+    for (var el in obj) {
+        if (obj.hasOwnProperty(el)) {
+            if (obj[el] !== "") {
+                sum += parseFloat(obj[el])
+            }
+        }
     }
+    return sum
 }
 
-function filterData(data) {
-    return data.filter(d => {
-        return d.revenue > 0
-    })
-}
-
-function prepareBarChartData(data) {
-    let cleanedData = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+function prepareIncome(data) {
     console.log(data)
-    cleanedData = cleanedData.map((current, i) => ({
-        start: data[0] * (i + 1),
-        end: data[1] * ((i + 1) * 2)
+    let cleanedIncomeData = [
+        { name: "Jan" },
+        { name: "Feb" },
+        { name: "Mar" },
+        { name: "Apr" },
+        { name: "May" },
+        { name: "Jun" },
+        { name: "Jul" },
+        { name: "Aug" },
+        { name: "Sep" },
+        { name: "Oct" },
+        { name: "Nov" },
+        { name: "Dec" }
+    ]
+    cleanedIncomeData = cleanedIncomeData.map((current, i) => ({
+        name: current.name,
+        in: Math.round(parseFloat(data) / 12)
     }))
-    return cleanedData
+    // console.log(cleanedData)
+    return cleanedIncomeData
+}
+
+function prepareExpenses(data) {
+    let cleanedExpensesData = [
+        { name: "Jan" },
+        { name: "Feb" },
+        { name: "Mar" },
+        { name: "Apr" },
+        { name: "May" },
+        { name: "Jun" },
+        { name: "Jul" },
+        { name: "Aug" },
+        { name: "Sep" },
+        { name: "Oct" },
+        { name: "Nov" },
+        { name: "Dec" }
+    ]
+    cleanedExpensesData = cleanedExpensesData.map((current, i) => ({
+        name: current.name,
+        out: Math.round(sum(data) / 12)
+    }))
+    // console.log(cleanedData)
+    return cleanedExpensesData
 }
 
 const BarChartData = () => {
-    const [barChartData, setBarChartData] = useState(null)
-    const [initialCash] = useGlobalState("initialCash")
+    const [incomeData, setIncomeData] = useState(null)
+    const [expensesData, setExpensesData] = useState(null)
+    const [annualAverageIncome] = useGlobalState("annualAverageIncome")
+    const [expenses] = useGlobalState("expenses")
 
     useEffect(() => {
-        // csv("/static/data/barchart.csv", type).then(data => {
-        //     const dataClean = filterData(data)
-        //     setBarChartData(
-        //         prepareBarChartData(dataClean).sort((a, b) => {
-        //             return ascending(a.genre, b.genre)
-        //         })
-        //     )
-        // })
-        // setBarChartData(prepareBarChartData([initialCash, cashFromCustomers]))
+        setIncomeData(prepareIncome(annualAverageIncome))
+        setExpensesData(prepareExpenses(expenses))
     }, [])
 
-    useEffect(() => {
-        let data = [initialCash]
-        setBarChartData(prepareBarChartData(data))
-    }, [initialCash])
 
-    if (barChartData === null) {
+    if (incomeData === null) {
         return <p>Loading...</p>
     }
 
     return (
         <div>
-            <BarChart data={barChartData} />
+            <ChartContainer income={incomeData} expenses={expensesData} />
         </div>
     )
 }

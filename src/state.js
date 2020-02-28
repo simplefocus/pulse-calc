@@ -35,6 +35,8 @@ export const { dispatch, useGlobalState } = createStore(
                 case "setExpenseName":
                     draft.expenses[action.newName] = draft.expenses[action.key]
                     delete draft.expenses[action.key]
+                case "setAnnualAverageIncome":
+                    draft.annualAverageIncome = action.annualAverageIncome
             }
         }),
     {
@@ -44,6 +46,7 @@ export const { dispatch, useGlobalState } = createStore(
         projectRevenue: "",
         seasonal: "yes",
         profitMarginValue: "",
+        annualAverageIncome: "",
         months: [
             "Jan",
             "Feb",

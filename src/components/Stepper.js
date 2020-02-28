@@ -3,18 +3,22 @@ import { useWizard } from "react-wizard-primitive"
 import styled from "styled-components/macro"
 import tw from "twin.macro"
 import BarChartData from "./BarChartData"
-import Button from "./Button"
-import IncomeForm from "./forms/IncomeForm"
-import ExpenseForm from "./forms/ExpenseForm"
+import Button from "./forms/Button"
+import IncomeForm from "./steps/IncomeForm"
+import ExpenseForm from "./steps/ExpenseForm"
 
 const PageContainer = styled.div`
-    ${tw`w-full p-4 md:p-8 lg:p-12`};
+    ${tw`w-full mx-auto bg-white `};
+    width: 90%;
+    max-width: 1102px;
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.08);
+    border: 1px solid #d6dae5;
 `
 const StepperNav = styled.div`
-    ${tw`flex w-full justify-between border-gray-200 border-solid border-b`};
+    ${tw`flex justify-start w-full p-4 border-b border-gray-200 border-solid bg-input-gray`};
 `
 const StepperNavHeading = styled.div`
-    ${tw`cursor-pointer`}
+    ${tw`ml-3 cursor-pointer`}
     ${props => (props.isActive ? tw`text-black` : tw`text-gray-300`)}
 `
 const Stepper = () => {
@@ -30,19 +34,19 @@ const Stepper = () => {
                     onClick={() => wizard.moveToStep(0)}
                     isActive={step1.isActive}
                 >
-                    Step 1<h3>Income</h3>
+                    Step 1: <strong>Income</strong>
                 </StepperNavHeading>
                 <StepperNavHeading
                     onClick={() => wizard.moveToStep(1)}
                     isActive={step2.isActive}
                 >
-                    Step 2<h3>Expenses</h3>
+                    Step 2: <strong>Expenses</strong>
                 </StepperNavHeading>
                 <StepperNavHeading
                     onClick={() => wizard.moveToStep(2)}
                     isActive={step3.isActive}
                 >
-                    Step 3<h3>Results</h3>
+                    Step 3: <strong>Results</strong>
                 </StepperNavHeading>
             </StepperNav>
 
@@ -52,7 +56,7 @@ const Stepper = () => {
 
             <div
                 css={`
-                    ${tw`flex justify-between mt-4`};
+                    ${tw`flex justify-end p-4 mt-4 bg-input-gray`};
                 `}
             >
                 {wizard.activeStepIndex > 0 && (

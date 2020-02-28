@@ -26,6 +26,7 @@
         "react-hooks-global-state": "^1.0.0-alpha.2",
         "react-scripts": "3.2.0",
         "react-wizard-primitive": "^2.3.0",
+        "recharts": "^2.0.0-beta.1",
         "regenerator-transform": "^0.14.1",
         "styled-components": "^5.0.1",
         "tailwind-config": "^0.1.2",
@@ -39,9 +40,10 @@
         "build:css": "postcss src/tailwind.css -o src/index.css",
         "watch:css": "postcss src/tailwind.css -o src/index.css",
         "start": "yarn watch:css & react-scripts start",
-        "build": "yarn build:css react-scripts build",
+        "build": "yarn build:css & react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "deploy": "now --prod"
     },
     "eslintConfig": {
         "extends": "react-app"
