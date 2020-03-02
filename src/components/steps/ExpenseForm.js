@@ -1,11 +1,19 @@
 import React, { useState } from "react"
-import styled from "styled-components/macro"
+import { fadeIn } from "react-animations"
+import styled, { keyframes } from "styled-components/macro"
 import tw from "twin.macro"
-import TextInput from "../forms/TextInput"
-import InputLeftAddon from "../forms/InputLeftAddon"
-import { Label } from "../forms"
 import { dispatch, useGlobalState } from "../../state"
+import { Label } from "../forms"
+import CurrencyInput from "../forms/CurrencyInput"
+import InputLeftAddon from "../forms/InputLeftAddon"
+import TextInput from "../forms/TextInput"
 
+const fadeInAnimation = keyframes`${fadeIn}`
+
+const Fade = styled.div`
+    ${tw`flex flex-wrap px-4 pt-6 md:px-8 lg:px-12`}
+    animation: 1s ${fadeInAnimation}
+`
 const PretendLink = styled.span`
     ${tw`font-bold underline transition-colors duration-75 ease-linear cursor-pointer text-input-green hover:text-pulse-green`};
 `
@@ -45,11 +53,7 @@ const ExpenseForm = () => {
     let lastExpense = Object.keys(expenses).length - 1
 
     return (
-        <div
-            css={`
-                ${tw`px-4 pt-6 my-4 md:px-8 lg:px-12`}
-            `}
-        >
+        <Fade>
             <Label
                 css={`
                     ${tw`mb-6`}
@@ -84,11 +88,11 @@ const ExpenseForm = () => {
                                         `}
                                     >
                                         <InputLeftAddon label="$" />
-                                        <TextInput
-                                            inputName={key}
+                                        <CurrencyInput
+                                            name={key}
                                             value={expenses[key]}
-                                            onChange={updateExpenses}
-                                            onBlur={updateExpenses}
+                                            onChange={(e) => {updateExpenses(key, e)}}
+                                            onBlur={(e) => {updateExpenses(key, e)}}
                                         />
                                     </td>
                                 </>
@@ -110,11 +114,11 @@ const ExpenseForm = () => {
                                         `}
                                     >
                                         <InputLeftAddon label="$" />
-                                        <TextInput
-                                            inputName={key}
+                                        <CurrencyInput
+                                            name={key}
                                             value={expenses[key]}
-                                            onChange={updateExpenses}
-                                            onBlur={updateExpenses}
+                                            onChange={(e) => {updateExpenses(key, e)}}
+                                            onBlur={(e) => {updateExpenses(key, e)} }
                                             autoFocus={
                                                 i === lastExpense && itemAdded
                                                     ? true
@@ -137,7 +141,7 @@ const ExpenseForm = () => {
                     </tr>
                 </tfoot>
             </table>
-        </div>
+        </Fade>
     )
 }
 

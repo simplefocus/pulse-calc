@@ -1,8 +1,8 @@
-import React from "react"
+import React, { useState } from "react"
 import { useWizard } from "react-wizard-primitive"
 import styled from "styled-components/macro"
 import tw from "twin.macro"
-import BarChartData from "./BarChartData"
+import BarChartData from "./steps/BarChartData"
 import Button from "./forms/Button"
 import IncomeForm from "./steps/IncomeForm"
 import ExpenseForm from "./steps/ExpenseForm"
@@ -20,6 +20,9 @@ const StepperNav = styled.div`
 const StepperNavHeading = styled.div`
     ${tw`ml-3 cursor-pointer`}
     ${props => (props.isActive ? tw`text-black` : tw`text-gray-300`)}
+`
+const StepperFooter = styled.div`
+ ${tw`flex justify-end p-4 mt-4 bg-input-gray`};
 `
 const Stepper = () => {
     const wizard = useWizard()
@@ -50,15 +53,11 @@ const Stepper = () => {
                 </StepperNavHeading>
             </StepperNav>
 
-            {step1.isActive && <IncomeForm />}
-            {step2.isActive && <ExpenseForm />}
-            {step3.isActive && <BarChartData />}
-
-            <div
-                css={`
-                    ${tw`flex justify-end p-4 mt-4 bg-input-gray`};
-                `}
-            >
+                {step1.isActive && <IncomeForm />}
+                {step2.isActive && <ExpenseForm />}
+                {step3.isActive && <BarChartData />}
+                
+            <StepperFooter>
                 {wizard.activeStepIndex > 0 && (
                     <Button
                         leftIcon
@@ -77,7 +76,7 @@ const Stepper = () => {
                         emphasis="to Expenses"
                     />
                 )}
-            </div>
+            </StepperFooter>
         </PageContainer>
     )
 }

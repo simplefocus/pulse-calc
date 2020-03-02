@@ -1,13 +1,22 @@
 import React from "react"
-
-import styled from "styled-components/macro"
+import { fadeIn, fadeOutLeft } from "react-animations"
+import styled, { keyframes } from "styled-components/macro"
 import tw from "twin.macro"
+import { dispatch, useGlobalState } from "../../state"
+import { Box, FormControl, FormRow, Label, RadioGroup } from "../forms"
+import CurrencyInput from "../forms/CurrencyInput"
+import InputLeftAddon from "../forms/InputLeftAddon"
+import InputRightAddon from "../forms/InputRightAddon"
 import Radio from "../forms/Radio"
 import TextInput from "../forms/TextInput"
-import InputRightAddon from "../forms/InputRightAddon"
-import InputLeftAddon from "../forms/InputLeftAddon"
-import { Label, FormControl, FormRow, RadioGroup, Box } from "../forms"
-import { dispatch, useGlobalState } from "../../state"
+
+const fadeInAnimation = keyframes`${fadeIn}`
+const slideInAnimation = keyframes`${fadeOutLeft}`
+
+const Fade = styled.div`
+    ${tw`flex flex-wrap px-4 pt-6 md:px-8 lg:px-12`}
+    animation: 1s ${fadeInAnimation};
+`
 
 const IncomeForm = () => {
     const [initialCash] = useGlobalState("initialCash")
@@ -59,10 +68,7 @@ const IncomeForm = () => {
     }
 
     return (
-        <form
-            css={`
-                ${tw`flex flex-wrap px-4 pt-6 md:px-8 lg:px-12`}
-            `}
+        <Fade
         >
             <FormRow>
                 <Box>
@@ -89,9 +95,7 @@ const IncomeForm = () => {
                     </RadioGroup>
 
                     <FormControl>
-                        {profitModel === "cash" && (
-                            <InputLeftAddon label="$" />
-                        )}
+                        {profitModel === "cash" && <InputLeftAddon label="$" />}
                         <TextInput
                             inputName="profit-margin"
                             onChange={setText}
@@ -101,7 +105,13 @@ const IncomeForm = () => {
                         {profitModel === "percentage" && (
                             <InputRightAddon label="%" />
                         )}
-                        <span css={`${tw`md:ml-2`}`}>per year</span>
+                        <span
+                            css={`
+                                ${tw`md:ml-2`}
+                            `}
+                        >
+                            per year
+                        </span>
                     </FormControl>
                 </Box>
                 <Box>
@@ -157,19 +167,6 @@ const IncomeForm = () => {
                         />
                     </RadioGroup>
                 </Box>
-                {/* <Box>
-                    <FormControl>
-                        <Label htmlFor="revenue-project">
-                            What percentage of your revenue is project-based?
-                        </Label>
-                        <TextInput
-                            inputName="revenue-project"
-                            value={projectRevenue}
-                            onChange={setText}
-                        />
-                        <InputRightAddon label="%" />
-                    </FormControl>
-                </Box> */}
             </FormRow>
 
             <FormRow>
@@ -183,10 +180,11 @@ const IncomeForm = () => {
                             What's your average annual income?
                         </Label>
                         <InputLeftAddon label="$" />
-                        <TextInput
-                            inputName="annual-average-income"
+                        <CurrencyInput
                             value={annualAverageIncome}
-                            onChange={setText}
+                            onChange={e => {
+                                setText("annual-average-income", e)
+                            }}
                         />
                     </FormControl>
                 </Box>
@@ -225,7 +223,7 @@ const IncomeForm = () => {
                     </FormControl>
                 </Box>
             </FormRow>
-        </form>
+        </Fade>
     )
 }
 

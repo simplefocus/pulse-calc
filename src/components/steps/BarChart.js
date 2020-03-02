@@ -13,11 +13,13 @@ import {
 } from "recharts"
 import styled from "styled-components/macro"
 import tw from "twin.macro"
+
 const formatYAxis = tickItem => {
     return Math.abs(tickItem) > 999
         ? "$" + Math.sign(tickItem) * (Math.abs(tickItem) / 1000).toFixed(1) + "k"
         : "$" + Math.sign(tickItem) * Math.abs(tickItem)
 }
+
 const ChartContainer = ({ income, expenses }) => {
     const mergedData = income.map((item, i) =>
         Object.assign({}, item, expenses[i])
@@ -42,7 +44,7 @@ const ChartContainer = ({ income, expenses }) => {
                 <XAxis dataKey="name" padding={{ left: 50 }} />
                 <YAxis tickFormatter={formatYAxis} />
                 <Tooltip />
-                <Legend />
+                {/* <Legend /> */}
                 {/* <Area
                         type="monotone"
                         dataKey="in"
