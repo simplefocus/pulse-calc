@@ -48,7 +48,13 @@
         "build": "yarn build:css & react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "deploy": "now --prod"
+        "deploy": "now --prod",
+        "backstop:approve": "backstop approve --config=test/mainConfig.js",
+        "backstop:test": "npm run clean:bitmaps_test && backstop test --config=test/mainConfig.js",
+        "backstop:reference": "backstop reference --config=test/mainConfig.js",
+        "clean:bitmaps_test": "rm -rf test/backstop_data/bitmaps_test",
+        "test:css": "npm run backstop:test",
+        "test:docker": "npm run clean:bitmaps_test && backstop test --config=test/mainConfig.js --docker"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -67,6 +73,7 @@
     },
     "devDependencies": {
         "@tailwindcss/custom-forms": "^0.2.1",
+        "backstopjs": "^4.5.0",
         "immer": "^5.3.6"
     }
 }

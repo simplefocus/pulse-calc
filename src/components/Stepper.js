@@ -8,7 +8,7 @@ import IncomeForm from "./steps/IncomeForm"
 import ExpenseForm from "./steps/ExpenseForm"
 
 const PageContainer = styled.div`
-    ${tw`w-full mx-auto bg-white `};
+    ${tw`w-full mx-auto bg-white`};
     width: 90%;
     max-width: 1102px;
     box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.08);
