@@ -5,16 +5,15 @@ import tw from "twin.macro"
 import BarChartData from "./steps/BarChartData"
 import Link from "./Link"
 import Button from "./forms/Button"
-import IncomeForm from "./steps/IncomeForm"
+import Start from "./steps/Start"
+import Target from "./steps/Target"
 import ExpenseForm from "./steps/ExpenseForm"
 import PageContainer from "./PageContainer"
 import { ReactComponent as Chart } from "../chart.svg"
 import Header from "./Header"
 
 const StepperNav = styled.div`
-    ${tw`flex flex-col justify-start w-1/3 p-4 pr-12 text-white border-l-8 border-solid border-pulse-green bg-pulse-black`};
-    min-width: 250px;
-    max-width: 250px;
+    ${tw`flex flex-col justify-start w-full p-4 pr-12 text-white border-l-8 border-solid lg:w-1/4 border-pulse-green bg-pulse-black`};
     p,
     h3 {
         ${tw`text-white`}
@@ -23,15 +22,16 @@ const StepperNav = styled.div`
         ${tw`text-2xl!`}
     }
     ul {
-        ${tw`flex flex-col lg:pt-12`}
+        ${tw`flex lg:flex-col lg:pt-12`}
 
         li {
             ${tw`lg:mb-6`}
         }
     }
+    max-width: 250px;
 `
 const IntroContainer = styled.div`
-    ${tw`flex flex-col flex-wrap justify-between w-full pt-4 pl-12 bg-white`};
+    ${tw`flex flex-col justify-between w-full pt-4 pl-12 bg-white`};
     height: calc(100vh - 41px);
     h1 {
         ${tw`mb-8`}
@@ -45,26 +45,25 @@ const IntroContainer = styled.div`
     }
 `
 const EmojiWrapper = styled.span.attrs({ role: "img" })`
-    ${tw`block`};
+    ${tw`block w-full mb-4`};
     font-size: 44px;
-    width: 100%;
 `
 const StepperNavHeading = styled.div`
     ${tw`font-bold cursor-pointer`}
     ${props =>
         props.isActive
             ? tw`text-white`
-            : tw`text-gray-400`}
+            : tw`text-transparent-green`}
         font-size: 21px;
     strong {
         ${tw`block text-pulse-green`};
     }
 `
 const StepperFooter = styled.div`
-    ${tw`flex justify-end w-full p-4 bg-pale-green`};
+    ${tw`absolute bottom-0 left-0 right-0 flex justify-end w-full p-4 bg-pale-green`};
 `
 const StepperWrapper = styled.div`
-    ${tw`w-full bg-white`};
+    ${tw`relative flex-grow w-full bg-white lg:w-3/4`};
     p {
         ${tw`text-lg text-gray-700 text-dark`}
     }
@@ -154,23 +153,27 @@ const Stepper = () => {
                         </div>
                     </IntroContainer>
                 )}
-                {step1.isActive && (
-                    <>
-                        <IncomeForm />
-                    </>
-                )}
-                {step2.isActive && <ExpenseForm />}
+                {step1.isActive && <Start />}
+                {step2.isActive && <Target />}
                 {step3.isActive && <BarChartData />}
 
                 {wizard.activeStepIndex >= 1 && (
-                    <Button
-                        disabled={wizard.activeStepIndex === 4}
-                        onClick={wizard.nextStep}
-                        label="Continue"
-                    />
+                    <div
+                        css={`
+                            ${tw`lg:ml-12 lg:mb-8`}
+                        `}
+                    >
+                        <Button
+                            disabled={wizard.activeStepIndex === 4}
+                            onClick={wizard.nextStep}
+                            label="Continue"
+                        />
+                    </div>
                 )}
 
-                <StepperFooter></StepperFooter>
+                <StepperFooter>
+                    <small>©2020 Pulseapp.com, Inc. All Rights Reserved</small>
+                </StepperFooter>
             </StepperWrapper>
         </PageContainer>
     )

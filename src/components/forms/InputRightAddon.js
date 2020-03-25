@@ -11,7 +11,7 @@ const InputRightAddon = props => {
     return (
         <div
             css={`
-                ${tw`z-10 flex items-center justify-center px-4 text-xl border select-none bg-input-gray border-input-border shadow-input`};
+                ${tw`z-10 flex items-center justify-center px-2 text-xl border select-none bg-input-gray border-input-border shadow-input`};
                 height: 40px;
                 margin-left: -1px;
                 flex: 0 0 auto;

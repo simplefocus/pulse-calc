@@ -18,9 +18,9 @@ const Link = props => {
     } = props
 
     return (
-        <a
+        <span
             css={`
-                ${tw`no-underline cursor-pointer text-dark hover:underline hover:text-pulse-green`}
+                ${tw`no-underline cursor-pointer text-dark hover:underline hover:text-input-green`}
                 transition: .1s ease;
                 :hover:not(:disabled) {
                     background-position: 0% 7px;
@@ -45,7 +45,7 @@ const Link = props => {
             onClick={onClick}
         >
             {label} {emphasis}
-        </a>
+        </span>
     )
 }
 export default Link

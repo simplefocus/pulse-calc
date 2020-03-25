@@ -15,6 +15,8 @@ module.exports = {
                 dark: "#062C27",
                 "disabled-gray": "#3C3C3C40",
                 slate: "#464951",
+                "small-gray": "#7A7E87",
+                "transparent-green": "#516B68"
             },
             maxWidth: {
                 "1/4": "25%",

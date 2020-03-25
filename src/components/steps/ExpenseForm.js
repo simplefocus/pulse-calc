@@ -12,7 +12,7 @@ const fadeInAnimation = keyframes`${fadeIn}`
 
 const Fade = styled.div`
     ${tw`flex flex-wrap px-4 pt-6 md:px-8 lg:px-12`}
-    animation: 1s ${fadeInAnimation}
+    animation: 1s ${fadeInAnimation};
 `
 const PretendLink = styled.span`
     ${tw`font-bold underline transition-colors duration-75 ease-linear cursor-pointer text-input-green hover:text-pulse-green`};
