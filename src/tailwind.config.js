@@ -23,6 +23,7 @@ module.exports = {
                 "1/2": "50%",
                 "3/4": "75%",
                 "306": "306px",
+                "250": "250px"
             },
             boxShadow: {
                 input: "0 2px 4px 0 rgba(0,0,0,0.12)",

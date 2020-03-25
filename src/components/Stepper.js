@@ -13,7 +13,7 @@ import { ReactComponent as Chart } from "../chart.svg"
 import Header from "./Header"
 
 const StepperNav = styled.div`
-    ${tw`flex flex-col justify-start w-full p-4 pr-12 text-white border-l-8 border-solid lg:w-1/4 border-pulse-green bg-pulse-black`};
+    ${tw`flex flex-col justify-start w-full p-4 pr-12 text-white border-l-8 border-solid lg:w-1/4 border-pulse-green bg-pulse-black lg:max-w-250`};
     p,
     h3 {
         ${tw`text-white`}
@@ -28,10 +28,9 @@ const StepperNav = styled.div`
             ${tw`lg:mb-6`}
         }
     }
-    max-width: 250px;
 `
 const IntroContainer = styled.div`
-    ${tw`flex flex-col justify-between w-full pt-4 pl-12 bg-white`};
+    ${tw`flex flex-col justify-between w-full px-4 pt-4 bg-white lg:pl-12`};
     height: calc(100vh - 41px);
     h1 {
         ${tw`mb-8`}
@@ -160,7 +159,7 @@ const Stepper = () => {
                 {wizard.activeStepIndex >= 1 && (
                     <div
                         css={`
-                            ${tw`lg:ml-12 lg:mb-8`}
+                            ${tw`ml-4 lg:ml-12 lg:mb-8`}
                         `}
                     >
                         <Button

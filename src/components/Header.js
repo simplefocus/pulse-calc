@@ -8,8 +8,16 @@ const Header = props => {
     return (
         <div
             css={`
-                ${tw`flex items-center justify-end w-full px-8`}
-                ${back ? `justify-content: space-between; padding: 1rem 2rem` : ""}
+                ${tw`flex items-center justify-end w-full px-4 lg:px-8`}
+                ${back
+                    ? `
+                    justify-content: space-between;
+                    padding: 1rem 2rem;
+                    @media screen and (max-width: 1025px) {
+                        padding: 1rem;
+                    }
+                    `
+                    : ""}
             `}
         >
             {back}
