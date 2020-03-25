@@ -9,9 +9,9 @@ import InputLeftAddon from "../forms/InputLeftAddon"
 import InputRightAddon from "../forms/InputRightAddon"
 import Radio from "../forms/Radio"
 import TextInput from "../forms/TextInput"
+import Header from "../Header"
 
 const fadeInAnimation = keyframes`${fadeIn}`
-const slideInAnimation = keyframes`${fadeOutLeft}`
 
 const Fade = styled.div`
     ${tw`flex flex-wrap px-4 pt-6 md:px-8 lg:px-12`}
@@ -29,47 +29,47 @@ const IncomeForm = () => {
     const setProfitModel = event =>
         dispatch({
             profitModel: event,
-            type: "setProfitModel"
+            type: "setProfitModel",
         })
 
     const setSeasonal = value =>
         dispatch({
             seasonal: value,
-            type: "setSeasonal"
+            type: "setSeasonal",
         })
 
     const setText = (type, event) => {
         if (type === "cash-on-hand") {
             dispatch({
                 initialCash: event.target.value,
-                type: "setInitialCash"
+                type: "setInitialCash",
             })
         } else if (type === "revenue-recurring") {
             dispatch({
                 recurringRevenue: event.target.value,
-                type: "setRecurringRevenue"
+                type: "setRecurringRevenue",
             })
         } else if (type === "revenue-project") {
             dispatch({
                 projectRevenue: event.target.value,
-                type: "setProjectRevenue"
+                type: "setProjectRevenue",
             })
         } else if (type === "profit-margin") {
             dispatch({
                 profitMarginValue: event.target.value,
-                type: "setProfitMarginValue"
+                type: "setProfitMarginValue",
             })
         } else if (type === "annual-average-income") {
             dispatch({
                 annualAverageIncome: event.target.value,
-                type: "setAnnualAverageIncome"
+                type: "setAnnualAverageIncome",
             })
         }
     }
 
     return (
-        <Fade
-        >
+        <Fade>
+            <h1>Let's start with some numbers.</h1>
             <FormRow>
                 <Box>
                     <Label>Desired Profit Margin</Label>

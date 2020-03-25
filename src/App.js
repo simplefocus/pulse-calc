@@ -6,7 +6,7 @@ import AppStyles from "./AppStyles.styles.tw"
 function App() {
     return (
         <AppStyles>
-            <Header/>
+            {/* <Header/> */}
             <Stepper />
         </AppStyles>
     )

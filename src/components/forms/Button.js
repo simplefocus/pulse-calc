@@ -27,7 +27,7 @@ const Button = props => {
         <button
             name={inputName}
             css={`
-                ${tw`inline-block px-6 py-4 outline-none appearance-none bg-pulse-green`}
+                ${tw`inline-block px-6 py-4 font-bold outline-none appearance-none bg-pulse-green`}
                 transition: .1s ease;
                 :hover:not(:disabled) {
                     transform: scale(1.05);
@@ -59,7 +59,7 @@ const Button = props => {
             disabled={disabled}
             onClick={onClick}
         >
-            {label} <strong>{emphasis}</strong>
+            {label} {emphasis}
         </button>
     )
 }

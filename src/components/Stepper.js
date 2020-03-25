@@ -1,82 +1,177 @@
-import React, { useState } from "react"
+import React from "react"
 import { useWizard } from "react-wizard-primitive"
 import styled from "styled-components/macro"
 import tw from "twin.macro"
 import BarChartData from "./steps/BarChartData"
+import Link from "./Link"
 import Button from "./forms/Button"
 import IncomeForm from "./steps/IncomeForm"
 import ExpenseForm from "./steps/ExpenseForm"
+import PageContainer from "./PageContainer"
+import { ReactComponent as Chart } from "../chart.svg"
+import Header from "./Header"
 
-const PageContainer = styled.div`
-    ${tw`w-full mx-auto bg-white`};
-    width: 90%;
-    max-width: 1102px;
-    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.08);
-    border: 1px solid #d6dae5;
-`
 const StepperNav = styled.div`
-    ${tw`flex justify-start w-full p-4 border-b border-gray-200 border-solid bg-input-gray`};
+    ${tw`flex flex-col justify-start w-1/3 p-4 pr-12 text-white border-l-8 border-solid border-pulse-green bg-pulse-black`};
+    min-width: 250px;
+    max-width: 250px;
+    p,
+    h3 {
+        ${tw`text-white`}
+    }
+    h3 {
+        ${tw`text-2xl!`}
+    }
+    ul {
+        ${tw`flex flex-col lg:pt-12`}
+
+        li {
+            ${tw`lg:mb-6`}
+        }
+    }
+`
+const IntroContainer = styled.div`
+    ${tw`flex flex-col flex-wrap justify-between w-full pt-4 pl-12 bg-white`};
+    height: calc(100vh - 41px);
+    h1 {
+        ${tw`mb-8`}
+    }
+    p {
+        ${tw`mb-8`}
+    }
+    p,
+    h1 {
+        max-width: 45rem;
+    }
+`
+const EmojiWrapper = styled.span.attrs({ role: "img" })`
+    ${tw`block`};
+    font-size: 44px;
+    width: 100%;
 `
 const StepperNavHeading = styled.div`
-    ${tw`ml-3 cursor-pointer`}
-    ${props => (props.isActive ? tw`text-black` : tw`text-gray-300`)}
+    ${tw`font-bold cursor-pointer`}
+    ${props =>
+        props.isActive
+            ? tw`text-white`
+            : tw`text-gray-400`}
+        font-size: 21px;
+    strong {
+        ${tw`block text-pulse-green`};
+    }
 `
 const StepperFooter = styled.div`
- ${tw`flex justify-end p-4 mt-4 bg-input-gray`};
+    ${tw`flex justify-end w-full p-4 bg-pale-green`};
 `
+const StepperWrapper = styled.div`
+    ${tw`w-full bg-white`};
+    p {
+        ${tw`text-lg text-gray-700 text-dark`}
+    }
+`
+
 const Stepper = () => {
     const wizard = useWizard()
-    const step1 = wizard.getStep()
-    const step2 = wizard.getStep()
-    const step3 = wizard.getStep()
+    const step0 = wizard.getStep({ routeTitle: "intro" })
+    const step1 = wizard.getStep({ routeTitle: "start" })
+    const step2 = wizard.getStep({ routeTitle: "target" })
+    const step3 = wizard.getStep({ routeTitle: "results" })
 
     return (
         <PageContainer>
             <StepperNav>
-                <StepperNavHeading
-                    onClick={() => wizard.moveToStep(0)}
-                    isActive={step1.isActive}
-                >
-                    Step 1: <strong>Income</strong>
-                </StepperNavHeading>
-                <StepperNavHeading
-                    onClick={() => wizard.moveToStep(1)}
-                    isActive={step2.isActive}
-                >
-                    Step 2: <strong>Expenses</strong>
-                </StepperNavHeading>
-                <StepperNavHeading
-                    onClick={() => wizard.moveToStep(2)}
-                    isActive={step3.isActive}
-                >
-                    Step 3: <strong>Results</strong>
-                </StepperNavHeading>
+                <p>Agency</p>
+                <h3>Cashflow Calculator</h3>
+                <ul>
+                    <li>
+                        <StepperNavHeading
+                            onClick={() => wizard.moveToStep(1)}
+                            isActive={step1.isActive}
+                        >
+                            <strong>01</strong> Start
+                        </StepperNavHeading>
+                    </li>
+                    <li>
+                        <StepperNavHeading
+                            onClick={() => wizard.moveToStep(2)}
+                            isActive={step2.isActive}
+                        >
+                            <strong>02</strong> Target
+                        </StepperNavHeading>
+                    </li>
+                    <li>
+                        <StepperNavHeading
+                            onClick={() => wizard.moveToStep(3)}
+                            isActive={step3.isActive}
+                        >
+                            <strong>03</strong> Results
+                        </StepperNavHeading>
+                    </li>
+                </ul>
             </StepperNav>
-
-                {step1.isActive && <IncomeForm />}
+            <StepperWrapper>
+                {wizard.activeStepIndex >= 1 && (
+                    <Header
+                        back={
+                            <Link
+                                onClick={wizard.previousStep}
+                                label="Back"
+                                leftIcon
+                            />
+                        }
+                    />
+                )}
+                {step0.isActive && (
+                    <IntroContainer>
+                        <Header />
+                        <div>
+                            <EmojiWrapper aria-label="Dollar Emoji">
+                                💸
+                            </EmojiWrapper>
+                            <h1>
+                                How much cash does your agency need to operate
+                                effectively?
+                            </h1>
+                            <p>
+                                Take our 2-minute survey, and we'll tell you. In
+                                addition, we'll give you proven advice for
+                                managing your cash, reinvesting, taking cash out
+                                and planning for unexpected expenses.
+                            </p>
+                            <Button
+                                rightIcon
+                                disabled={wizard.activeStepIndex === 3}
+                                onClick={wizard.nextStep}
+                                label="Get Started"
+                            />
+                        </div>
+                        <div
+                            css={`
+                                ${tw`flex justify-end w-full`}
+                            `}
+                        >
+                            <Chart />
+                        </div>
+                    </IntroContainer>
+                )}
+                {step1.isActive && (
+                    <>
+                        <IncomeForm />
+                    </>
+                )}
                 {step2.isActive && <ExpenseForm />}
                 {step3.isActive && <BarChartData />}
-                
-            <StepperFooter>
-                {wizard.activeStepIndex > 0 && (
+
+                {wizard.activeStepIndex >= 1 && (
                     <Button
-                        leftIcon
-                        disabled={wizard.activeStepIndex === 0}
-                        onClick={wizard.previousStep}
-                        label="Previous"
+                        disabled={wizard.activeStepIndex === 4}
+                        onClick={wizard.nextStep}
+                        label="Continue"
                     />
                 )}
 
-                {wizard.activeStepIndex < 2 && (
-                    <Button
-                        rightIcon
-                        disabled={wizard.activeStepIndex === 3}
-                        onClick={wizard.nextStep}
-                        label="Continue"
-                        emphasis="to Expenses"
-                    />
-                )}
-            </StepperFooter>
+                <StepperFooter></StepperFooter>
+            </StepperWrapper>
         </PageContainer>
     )
 }

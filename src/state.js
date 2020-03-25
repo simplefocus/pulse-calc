@@ -36,8 +36,12 @@ export const { dispatch, useGlobalState } = createStore(
                 case "setExpenseName":
                     draft.expenses[action.newName] = draft.expenses[action.key]
                     delete draft.expenses[action.key]
+                    break
                 case "setAnnualAverageIncome":
                     draft.annualAverageIncome = action.annualAverageIncome
+                    break
+                default:
+                    console.log('No action passed')
             }
         }),
     {
