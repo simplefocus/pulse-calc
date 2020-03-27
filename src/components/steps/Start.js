@@ -4,7 +4,6 @@ import styled, { keyframes } from "styled-components/macro"
 import tw from "twin.macro"
 import { dispatch, useGlobalState } from "../../state"
 import { Box, FormControl, FormRow, Label, RadioGroup } from "../forms"
-import CurrencyInput from "../forms/CurrencyInput"
 import InputLeftAddon from "../forms/InputLeftAddon"
 import InputRightAddon from "../forms/InputRightAddon"
 import Radio from "../forms/Radio"
@@ -13,8 +12,9 @@ import TextInput from "../forms/TextInput"
 const fadeInAnimation = keyframes`${fadeIn}`
 
 const Fade = styled.div`
-    ${tw`flex flex-wrap px-4 pt-6 md:px-8 lg:px-12`}
+    ${tw`flex flex-wrap px-4 pt-6 md:px-8 lg:px-0 lg:mx-auto`}
     animation: 1s ${fadeInAnimation};
+    max-width: 742px;
 `
 
 const Start = () => {
@@ -79,7 +79,7 @@ const Start = () => {
                 </Label>
                 <Box
                     css={`
-                        ${tw`lg:mt-0 lg:w-1/4`}
+                        ${tw`lg:mt-0 lg:w-1/3`}
                     `}
                 >
                     <FormControl>
@@ -96,7 +96,7 @@ const Start = () => {
                 </Box>
                 <Box
                     css={`
-                        ${tw`lg:mt-0 lg:w-1/4`}
+                        ${tw`lg:mt-0 lg:w-1/3`}
                     `}
                 >
                     <FormControl>

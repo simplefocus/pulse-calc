@@ -23,3 +23,4 @@ export const FormRow = styled.div`
 export const Box = styled.div`
     ${tw`block my-6`}
 `
+export { Button } from './Button'

@@ -1,14 +1,11 @@
-import React from "react"
-import Header from "./components/Header"
-import Stepper from "./components/Stepper"
-import AppStyles from "./AppStyles.styles.tw"
-
+import React from 'react'
+import Stepper from './components/Stepper'
+import { Layout } from './components/general'
 function App() {
     return (
-        <AppStyles>
-            {/* <Header/> */}
+        <Layout>
             <Stepper />
-        </AppStyles>
+        </Layout>
     )
 }
 

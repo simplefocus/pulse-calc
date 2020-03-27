@@ -1,16 +1,15 @@
-import React from "react"
-import { useWizard } from "react-wizard-primitive"
-import styled from "styled-components/macro"
-import tw from "twin.macro"
-import BarChartData from "./steps/BarChartData"
-import Link from "./Link"
-import Button from "./forms/Button"
-import Start from "./steps/Start"
-import Target from "./steps/Target"
-import ExpenseForm from "./steps/ExpenseForm"
-import PageContainer from "./PageContainer"
-import { ReactComponent as Chart } from "../chart.svg"
-import Header from "./Header"
+import { Button, Link } from 'components/atoms'
+import { Box, Heading, Text, Flex } from 'components/Base'
+import { EmojiWrapper, Header } from 'components/general'
+import React from 'react'
+import { useWizard } from 'react-wizard-primitive'
+import styled from 'styled-components/macro'
+import tw from 'twin.macro'
+import { ReactComponent as Chart } from '../chart.svg'
+import PageContainer from './PageContainer'
+import BarChartData from './steps/BarChartData'
+import Start from './steps/Start'
+import Target from './steps/Target'
 
 const StepperNav = styled.div`
     ${tw`flex flex-col justify-start w-full p-4 pr-12 text-white border-l-8 border-solid lg:w-1/4 border-pulse-green bg-pulse-black lg:max-w-250`};
@@ -32,9 +31,6 @@ const StepperNav = styled.div`
 const IntroContainer = styled.div`
     ${tw`flex flex-col justify-between w-full px-4 pt-4 bg-white lg:pl-12`};
     height: calc(100vh - 41px);
-    h1 {
-        ${tw`mb-8`}
-    }
     p {
         ${tw`mb-8`}
     }
@@ -43,10 +39,7 @@ const IntroContainer = styled.div`
         max-width: 45rem;
     }
 `
-const EmojiWrapper = styled.span.attrs({ role: "img" })`
-    ${tw`block w-full mb-4`};
-    font-size: 44px;
-`
+
 const StepperNavHeading = styled.div`
     ${tw`font-bold cursor-pointer`}
     ${props =>
@@ -70,16 +63,16 @@ const StepperWrapper = styled.div`
 
 const Stepper = () => {
     const wizard = useWizard()
-    const step0 = wizard.getStep({ routeTitle: "intro" })
-    const step1 = wizard.getStep({ routeTitle: "start" })
-    const step2 = wizard.getStep({ routeTitle: "target" })
-    const step3 = wizard.getStep({ routeTitle: "results" })
+    const step0 = wizard.getStep({ routeTitle: 'intro' })
+    const step1 = wizard.getStep({ routeTitle: 'start' })
+    const step2 = wizard.getStep({ routeTitle: 'target' })
+    const step3 = wizard.getStep({ routeTitle: 'results' })
 
     return (
         <PageContainer>
             <StepperNav>
                 <p>Agency</p>
-                <h3>Cashflow Calculator</h3>
+                <Heading as="h3">Cashflow Calculator</Heading>
                 <ul>
                     <li>
                         <StepperNavHeading
@@ -109,47 +102,41 @@ const Stepper = () => {
             </StepperNav>
             <StepperWrapper>
                 {wizard.activeStepIndex >= 1 && (
-                    <Header
-                        back={
-                            <Link
-                                onClick={wizard.previousStep}
-                                label="Back"
-                                leftIcon
-                            />
-                        }
-                    />
+                    <Header>
+                        <Link onClick={wizard.previousStep} leftIcon>
+                            Back
+                        </Link>
+                    </Header>
                 )}
                 {step0.isActive && (
                     <IntroContainer>
                         <Header />
                         <div>
-                            <EmojiWrapper aria-label="Dollar Emoji">
+                            <EmojiWrapper fullWidth aria-label="Dollar Emoji">
                                 💸
                             </EmojiWrapper>
-                            <h1>
+                            <Heading as="h1" mb="8">
                                 How much cash does your agency need to operate
                                 effectively?
-                            </h1>
-                            <p>
+                            </Heading>
+                            <Text as="p">
                                 Take our 2-minute survey, and we'll tell you. In
                                 addition, we'll give you proven advice for
                                 managing your cash, reinvesting, taking cash out
                                 and planning for unexpected expenses.
-                            </p>
+                            </Text>
                             <Button
+                                isLarge
                                 rightIcon
                                 disabled={wizard.activeStepIndex === 3}
                                 onClick={wizard.nextStep}
-                                label="Get Started"
-                            />
+                            >
+                                Get Started
+                            </Button>
                         </div>
-                        <div
-                            css={`
-                                ${tw`flex justify-end w-full`}
-                            `}
-                        >
+                        <Flex justifyContent="flex-end" w="100">
                             <Chart />
-                        </div>
+                        </Flex>
                     </IntroContainer>
                 )}
                 {step1.isActive && <Start />}
@@ -157,17 +144,19 @@ const Stepper = () => {
                 {step3.isActive && <BarChartData />}
 
                 {wizard.activeStepIndex >= 1 && (
-                    <div
-                        css={`
-                            ${tw`ml-4 lg:ml-12 lg:mb-8`}
-                        `}
+                    <Box
+                        ml={[4, 'auto', 'auto']}
+                        mr={[0, 'auto', 'auto']}
+                        mb="24"
+                        maxWidth="742px"
                     >
                         <Button
                             disabled={wizard.activeStepIndex === 4}
                             onClick={wizard.nextStep}
-                            label="Continue"
-                        />
-                    </div>
+                        >
+                            Continue
+                        </Button>
+                    </Box>
                 )}
 
                 <StepperFooter>

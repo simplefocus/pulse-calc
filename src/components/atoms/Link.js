@@ -1,12 +1,12 @@
-import React from "react"
-import styled from "styled-components/macro"
-import tw from "twin.macro"
-import svgToDataUri from "mini-svg-data-uri"
+import React from 'react'
+import styled from 'styled-components/macro'
+import tw from 'twin.macro'
+import svgToDataUri from 'mini-svg-data-uri'
 
 const arrowLeft = () =>
     `<svg width="12" height="11" xmlns="http://www.w3.org/2000/svg"><text transform="rotate(-180 6 8)" fill="#464951" fill-rule="evenodd" font-family="WorkSans-Regular, Work Sans" font-size="16" opacity=".8"><tspan x="0" y="16">→</tspan></text></svg>`
 
-const Link = props => {
+export const Link = ({ children, ...props }) => {
     const {
         inputName,
         label,
@@ -39,12 +39,13 @@ const Link = props => {
                         background-size: 12px 11px;
                         padding-left: 1.5rem;
                             `
-                    : ""}
+                    : ''}
             `}
             disabled={disabled}
             onClick={onClick}
         >
             {label} {emphasis}
+            {children}
         </span>
     )
 }

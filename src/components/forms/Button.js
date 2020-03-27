@@ -12,7 +12,7 @@ const arrowRight = () =>
 const arrowLeft = () =>
     `<svg height="14" viewBox="0 0 13 14" width="13" xmlns="http://www.w3.org/2000/svg"><text fill="#062c27" fill-rule="evenodd" font-family="WorkSans-Bold, Work Sans" font-size="18" font-weight="bold" transform="translate(-202 -4)"><tspan x="202" y="17">→</tspan></text></svg>`
 
-const Button = props => {
+export const Button = props => {
     const {
         inputName,
         label,

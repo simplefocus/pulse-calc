@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useGlobalState } from "../../state"
-import { convertToNumber, sum } from "../../utils"
+import { convertToNumber, sum } from "utils"
 import ChartContainer from "./BarChart"
 
 const months = [
